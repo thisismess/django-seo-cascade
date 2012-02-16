@@ -10,7 +10,7 @@ class SEOPageOverrideAdmin(admin.ModelAdmin):
 			'fields': ('title', 'description', 'image',)
 			}),
 		('Sitemap', {
-			'fields': ('priority', 'omit', )
+			'fields': ('omit', )
 		}),
 		('Advanced', {
 			'classes': ('collapse closed',),

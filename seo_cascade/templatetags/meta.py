@@ -23,7 +23,7 @@ class MetaNode(BlockNode):
 		nodelist.insert(0, vn)
 
 		# build block tag with block name "meta"
-		super(MetaNode, self).__init__("meta", nodelist, parent)
+		super(MetaNode, self).__init__("meta-cascade", nodelist, parent)
 
 	def render(self, context):
 		raw = super(MetaNode, self).render(context)
