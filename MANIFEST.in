@@ -1,0 +1,2 @@
+include ez_setup.py *.txt README
+recursive-include seo_cascade *.py
