@@ -18,7 +18,7 @@ class Migration(SchemaMigration):
             ('model', self.gf('django.db.models.fields.CharField')(unique=True, max_length=255)),
             ('priority', self.gf('django.db.models.fields.DecimalField')(default=0.5, null=True, max_digits=2, decimal_places=1, blank=True)),
         ))
-        db.send_create_signal('seo', ['SEOModelDefault'])
+        db.send_create_signal('seo_cascade', ['SEOModelDefault'])
 
         # Adding model 'SEOPageOverride'
         db.create_table('seo_cascade_seopageoverride', (
@@ -30,7 +30,7 @@ class Migration(SchemaMigration):
             ('path', self.gf('django.db.models.fields.CharField')(max_length=255)),
             ('image', self.gf('django.db.models.fields.files.ImageField')(max_length=100, null=True, blank=True)),
         ))
-        db.send_create_signal('seo', ['SEOPageOverride'])
+        db.send_create_signal('seo_cascade', ['SEOPageOverride'])
 
 
     def backwards(self, orm):
@@ -43,7 +43,7 @@ class Migration(SchemaMigration):
 
 
     models = {
-        'seo.seomodeldefault': {
+        'seo_cascade.seomodeldefault': {
             'Meta': {'ordering': "['model']", 'object_name': 'SEOModelDefault'},
             'description': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
@@ -53,7 +53,7 @@ class Migration(SchemaMigration):
             'priority': ('django.db.models.fields.DecimalField', [], {'default': '0.5', 'null': 'True', 'max_digits': '2', 'decimal_places': '1', 'blank': 'True'}),
             'title': ('django.db.models.fields.CharField', [], {'max_length': '255', 'null': 'True', 'blank': 'True'})
         },
-        'seo.seopageoverride': {
+        'seo_cascade.seopageoverride': {
             'Meta': {'ordering': "['path']", 'object_name': 'SEOPageOverride'},
             'description': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
