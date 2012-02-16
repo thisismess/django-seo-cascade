@@ -4,11 +4,11 @@ from setuptools import setup, find_packages
 
 setup(
 		name                 = "django-seo-cascade",
-		version              = "0.2",
+		version              = "0.3",
 		packages             = find_packages(),
 		author               = "Lynn Dylan Hurley, Jack Shedd",
 		author_email         = "lynn.dylan.hurley@gmail.com",
-		description          = "Easy SEO management. Automatic sitemap + easy meta management.",
+		description          = "Django SEO manager. Automatic sitemap generation, cascading meta tag blocks, and overrides via the django admin.",
 		url                  = "https://github.com/thisismess/django-seo-cascade",
 		include_package_data = True,
 		install_requires     = ['Django>=1.3.1', 'lxml>=2.3.3', 'ez_setup']
