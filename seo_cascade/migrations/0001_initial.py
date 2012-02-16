@@ -9,7 +9,7 @@ class Migration(SchemaMigration):
     def forwards(self, orm):
         
         # Adding model 'SEOModelDefault'
-        db.create_table('seo_seomodeldefault', (
+        db.create_table('seo_cascade_seomodeldefault', (
             ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('title', self.gf('django.db.models.fields.CharField')(max_length=255, null=True, blank=True)),
             ('description', self.gf('django.db.models.fields.TextField')(null=True, blank=True)),
@@ -21,7 +21,7 @@ class Migration(SchemaMigration):
         db.send_create_signal('seo', ['SEOModelDefault'])
 
         # Adding model 'SEOPageOverride'
-        db.create_table('seo_seopageoverride', (
+        db.create_table('seo_cascade_seopageoverride', (
             ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('title', self.gf('django.db.models.fields.CharField')(max_length=255, null=True, blank=True)),
             ('description', self.gf('django.db.models.fields.TextField')(null=True, blank=True)),
@@ -36,10 +36,10 @@ class Migration(SchemaMigration):
     def backwards(self, orm):
         
         # Deleting model 'SEOModelDefault'
-        db.delete_table('seo_seomodeldefault')
+        db.delete_table('seo_cascade_seomodeldefault')
 
         # Deleting model 'SEOPageOverride'
-        db.delete_table('seo_seopageoverride')
+        db.delete_table('seo_cascade_seopageoverride')
 
 
     models = {
@@ -65,4 +65,4 @@ class Migration(SchemaMigration):
         }
     }
 
-    complete_apps = ['seo']
+    complete_apps = ['seo_cascade']
