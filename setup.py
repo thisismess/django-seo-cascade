@@ -11,5 +11,5 @@ setup(
 		description          = "Easy SEO management. Automatic sitemap + easy meta management.",
 		url                  = "https://github.com/thisismess/django-seo-cascade",
 		include_package_data = True,
-		install_requires     = ['Django>=1.3.1', 'lxml>=2.3.3']
+		install_requires     = ['Django>=1.3.1', 'lxml>=2.3.3', 'ez_setup']
 )
