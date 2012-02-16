@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 
 setup(
 		name                 = "django-seo-cascade",
-		version              = "0.1",
+		version              = "0.2",
 		packages             = find_packages(),
 		author               = "Lynn Dylan Hurley, Jack Shedd",
 		author_email         = "lynn.dylan.hurley@gmail.com",
