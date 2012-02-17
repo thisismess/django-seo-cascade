@@ -1,4 +1,6 @@
+MANIFEST.in
 README
+ez_setup.py
 setup.py
 django_seo_cascade.egg-info/PKG-INFO
 django_seo_cascade.egg-info/SOURCES.txt

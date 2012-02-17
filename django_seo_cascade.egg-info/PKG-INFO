@@ -1,6 +1,6 @@
 Metadata-Version: 1.0
 Name: django-seo-cascade
-Version: 0.3
+Version: 0.4
 Summary: Django SEO manager. Automatic sitemap generation, cascading meta tag blocks, and overrides via the django admin.
 Home-page: https://github.com/thisismess/django-seo-cascade
 Author: Lynn Dylan Hurley, Jack Shedd

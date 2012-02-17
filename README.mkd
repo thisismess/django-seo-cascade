@@ -1,0 +1,156 @@
+# django-seo-cascade
+
+We deal with the following issues with nearly every site that we build:
+
+1. Sitemap generation
+
+> Sitemap generation often involves a lot of boilerplate configuration. We would like to automate as much of this as possible.
+
+> Also, clients need some level of control over the sitemap. Currently, the only way to update the sitemap is to edit Django's sitemap classes directly. Most clients can't be expected to do this.
+
+2. Meta tag configuration
+
+> Meta tags don't always conform to the Django template blocks paradigm. "block.super" helps, but sometimes it's better to update only one tag without replacing every item in the block. A better solution would be a series of cascading values, simalar to CSS.
+
+> Clients will also need to be able to edit the meta tags on a per-page basis.
+
+
+## This project has 4 goals:
+
+1. Give developers a more precise, efficient method of adding meta content via Django templates
+2. Give site admins control of meta-data on a per-page basis.
+3. Automatically handle sitemap generation.
+4. Give site admins granular control of the sitemap on a per-model and per-page basis.
+
+
+### See also:
+
+django-seo
+https://github.com/willhardy/django-seo
+
+## Installation
+
+from the command line:
+
+<!-- language: lang-bash -->
+pip install django-seo-cascade
+
+Add django-seo to middleware:
+
+<!-- language: lang-python -->
+    MIDDLEWARE_CLASSES = (
+    		...
+        'seo_cascade.middleware.SEOMiddleware',
+    )
+
+## Use
+
+### Example Template Setup:
+
+base.html
+<!-- language: lang-html -->
+    {% load meta %}
+    
+    <html>
+    
+    <head>
+    {% meta %}
+    	<title>The Metamorphosis</title>
+    	<meta name="description" content="One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin." />
+    	<meta name="author" content="Kafka" />
+    {% endmeta %}
+    </head>
+    
+    <body>
+    {% block content %}
+    {% endblock %}
+    </body>
+    
+    </html>
+    
+
+results in:
+<!-- language: lang-html -->
+    <html>
+    
+    <head>
+    	<title>The Metamorphosis</title>
+    	<meta name="description" content="One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin." />
+    	<meta name="author" content="Kafka" />
+    </head>
+    
+    <body>
+    </body>
+    
+    </html>
+    
+
+---
+extended.html
+<!-- language: lang-html -->
+    {% extends "base.html" %}
+    
+    {% meta %}
+    	<meta name="description" content="He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed and divided by arches into stiff sections." />
+    {% endmeta %}
+    
+
+results in:
+<!-- language: lang-html -->
+    <html>
+    
+    <head>
+    	<title>The Metamorphosis</title>
+    	<meta name="description" content="He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed and divided by arches into stiff sections." />
+    	<meta name="author" content="Kafka" />
+    </head>
+    
+    <body>
+    </body>
+    
+    </html>
+    
+    
+
+---
+extended_again.html
+    
+    {% extends "extended.html" %}
+    
+    {% meta %}
+    	<meta name="description" content="The bedding was hardly able to cover it and seemed ready to slide off any moment." />
+    	<meta property="og:image" content="http://1.bp.blogspot.com/-Ut_juBQ8mjE/Ta3cKwVW4QI/AAAAAAAAASY/J8ZXDQRWVNs/s1600/franz-kafkas-metamorphosis3.jpeg"
+    {% endmeta %}
+    
+    
+
+results in:
+<!-- language: lang-html -->
+    <html>
+    
+    <head>
+    	<title>The Metamorphosis</title>
+    	<meta name="description" content="The bedding was hardly able to cover it and seemed ready to slide off any moment." />
+    	<meta name="author" content="Kafka" />
+    	<meta property="og:image" content="http://1.bp.blogspot.com/-Ut_juBQ8mjE/Ta3cKwVW4QI/AAAAAAAAASY/J8ZXDQRWVNs/s1600/franz-kafkas-metamorphosis3.jpeg"
+    </head>
+    
+    <body>
+    </body>
+    
+    </html>
+
+---
+The sitemap generator automatically creates sitemap entries for each model with a "get_absolute_url" method. From the admin, sitemap settings (priority, changefreq) can be set for each model, or the model can be omitted from the sitemap completely.
+
+### Precedence
+Meta tag settings take the following precedence:
+
+1. Admin path overrides.
+
+    1. "Meta HTML" fields
+    2. "title", "description", and "image" fields
+
+2. Template {% meta %} blocks.
+
+This project is still in beta. Please file issues and pull-requests via https://github.com/thisismess/django-seo-cascade.
