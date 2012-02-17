@@ -8,17 +8,17 @@ Also, clients need to be able to control the sitemap, and they cannot be expecte
 
 ### Project goals:
 
-1. Give developers a more precise, efficient method of adding meta content via Django templates
+1. Give developers precise, efficient method of adding meta content via Django templates.
 2. Give site admins control of meta-data on a per-page basis.
 3. Automatically handle sitemap generation.
-4. Give site admins granular control of the sitemap on a per-model and per-page basis.
+4. Give site admins control of the sitemap on a per-model and per-page basis.
 
 
 ## Installation
 
 from the command line:
 
-<!-- language: lang-bash -->
+<!-- language: lang-sh -->
 pip install django-seo-cascade
 
 Add django-seo to middleware:
@@ -138,6 +138,13 @@ Meta tag settings take the following precedence:
     2. "title", "description", and "image" fields
 
 2. Template {% meta %} blocks.
+
+### Side effects
+
+The following entry will be automatically appended to the django url conf:
+
+<!-- language: lang-python -->
+    url(r'^sitemap\.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': sitemaps})
 
 ### See also:
 
