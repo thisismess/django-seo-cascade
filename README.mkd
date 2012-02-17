@@ -6,7 +6,7 @@ This project addresses the following issues:
 Also, clients need to be able to control the sitemap, and they cannot be expected to edit Django's sitemap classes directly.
 2. **Meta tag configuration.** Meta tags don't always conform to the Django template blocks paradigm. "block.super" helps, but sometimes it's better to update only one tag without replacing every item in the block. A better solution would be a series of cascading values, like CSS overrides for tags. Clients will also need to be able to edit the meta tags on a per-page basis.
 
-## This project has 4 goals:
+### Project goals:
 
 1. Give developers a more precise, efficient method of adding meta content via Django templates
 2. Give site admins control of meta-data on a per-page basis.
