@@ -10,7 +10,7 @@ class SEOPageOverrideAdmin(admin.ModelAdmin):
 			'fields': ('title', 'description', 'image',)
 			}),
 		('Sitemap', {
-			'fields': ('omit', )
+			'fields': ('omit', 'changefreq', )
 		}),
 		('Advanced', {
 			'classes': ('collapse closed',),
@@ -21,7 +21,7 @@ class SEOPageOverrideAdmin(admin.ModelAdmin):
 class SEOModelDefaultAdmin(admin.ModelAdmin):
 	fieldsets = (
 		(None, {
-			'fields': ('model', 'omit',)
+			'fields': ('model', 'omit', 'changefreq', )
 		}),
 		('Advanced', {
 			'classes': ('collapse closed',),

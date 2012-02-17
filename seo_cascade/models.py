@@ -6,12 +6,23 @@ from django.conf import settings
 
 MODEL_CHOICES = [("%s.%s" % (m.__module__, m.__name__), ("%s.%s" % (m.__module__, m.__name__))) for m in filter(lambda x: hasattr(x, 'get_absolute_url'), models.get_models())]
 
+CHANGEFREQ_CHOICES = [
+	('always'  , 'Always')  ,
+	('hourly'  , 'Hourly')  ,
+	('daily'   , 'Daily')   ,
+	('weekly'  , 'Weekly')  ,
+	('monthly' , 'Monthly') ,
+	('yearly'  , 'Yearly')  ,
+	('never'   , 'Never')   ,
+]
+
 
 class SEOBase(models.Model):
 	title       = models.CharField(max_length=255, blank=True, null=True)
 	description = models.TextField(blank=True, null=True)
 	meta        = models.TextField("Meta Override HTML", blank=True, null=True)
 	omit        = models.BooleanField("Omit from sitemap", default=False)
+	changefreq  = models.CharField("Change Frequency", max_length=50, blank=True, null=True, choices=CHANGEFREQ_CHOICES, default='weekly')
 
 	class Meta:
 		abstract = True
@@ -37,6 +48,18 @@ class SEOBase(models.Model):
 		tags.append(etree.Element("meta", content=self.description, property="description"))
 		tags.append(etree.Element("meta", content=self.description, property="og:description"))
 		return u"%s" % reduce(lambda x, y: x+y, map(lambda x: etree.tostring(x, pretty_print=True), tags))
+
+
+class SEOLocation(SEOBase):
+	path     = models.CharField("Absolute Path", max_length=255, blank=False, null=False)
+	priority = models.DecimalField(max_digits=2, decimal_places=1, default=0.5, null=True, blank=True)
+
+	class Meta:
+		ordering = ['path',]
+		abstract = False
+
+	def __unicode__(self):
+		return u'%s' % self.path
 
 
 class SEOModelDefault(SEOBase):

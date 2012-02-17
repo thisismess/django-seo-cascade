@@ -1,3 +1,5 @@
+import re
+
 from django import template
 from django.template import VariableNode, FilterExpression, Parser
 from django.template.base import TemplateSyntaxError, StringOrigin, UNKNOWN_SOURCE
@@ -31,6 +33,17 @@ class MetaNode(BlockNode):
 		request = context.get('request')
 		path = request.get_full_path()
 
+		# first check for regex matches
+		for regex_override in SEOPageOverride.objects.all():
+			rx = re.compile(r'^%s' % regex_override.path)
+			if rx.match(path):
+				raw += regex_override.title_tags
+				raw += regex_override.description_tags
+				raw += regex_override.image_tags
+				raw += regex_override.meta
+				break
+
+		# then check for explicit matches
 		admin_path_override = first_of(SEOPageOverride.objects.filter(path=path))
 
 		if admin_path_override:
@@ -38,6 +51,7 @@ class MetaNode(BlockNode):
 			raw += admin_path_override.description_tags
 			raw += admin_path_override.image_tags
 			raw += admin_path_override.meta
+
 
 		root = etree.XML('<root>%s</root>' % raw)
 		children = root.getchildren()

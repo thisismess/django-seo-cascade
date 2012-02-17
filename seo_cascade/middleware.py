@@ -1,3 +1,4 @@
+import re
 from django.core.exceptions import MiddlewareNotUsed
 from django.contrib.sitemaps import GenericSitemap
 from django.db import models
@@ -14,7 +15,9 @@ class SEOMiddleware(object):
 
 def generate_sitemap():
 	valid_models = filter(lambda m: hasattr(m, 'get_absolute_url'), models.get_models())
-	all_overrides = map(lambda x: x.path, SEOPageOverride.objects.filter(omit=True))
+	all_overrides = SEOPageOverride.objects.all()
+	all_omissions = map(lambda x: x.path, all_overrides.filter(omit=True))
+
 	sitemaps = {}
 
 	for model in valid_models:
@@ -30,8 +33,13 @@ def generate_sitemap():
 			if defaults.priority:
 				priority = defaults.priority
 
-		# get list of items that have not been omitted by the admin
-		allowed_items = map(lambda i: i.pk, filter(lambda x: not x.get_absolute_url() in all_overrides, model.objects.all()))
+		allowed_items = model.objects.all()
+
+		# remove items that match omission regexes
+		for omission in all_omissions:
+			rx = re.compile('^%s$' % omission)
+			allowed_items = map(lambda i: i.pk, filter(lambda x: not rx.match(x.get_absolute_url()), allowed_items))
+
 		queryset = model.objects.filter(pk__in=allowed_items)
 
 		info_dict = {
