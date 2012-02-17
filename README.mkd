@@ -4,15 +4,15 @@ We deal with the following issues with nearly every site that we build:
 
 1. Sitemap generation
 
-> Sitemap generation often involves a lot of boilerplate configuration. We would like to automate as much of this as possible.
+Sitemap generation often involves a lot of boilerplate configuration. We would like to automate as much of this as possible.
 
-> Also, clients need some level of control over the sitemap. Currently, the only way to update the sitemap is to edit Django's sitemap classes directly. Most clients can't be expected to do this.
+Also, clients need some level of control over the sitemap. Currently, the only way to update the sitemap is to edit Django's sitemap classes directly. Most clients can't be expected to do this.
 
 2. Meta tag configuration
 
-> Meta tags don't always conform to the Django template blocks paradigm. "block.super" helps, but sometimes it's better to update only one tag without replacing every item in the block. A better solution would be a series of cascading values, simalar to CSS.
+Meta tags don't always conform to the Django template blocks paradigm. "block.super" helps, but sometimes it's better to update only one tag without replacing every item in the block. A better solution would be a series of cascading values, simalar to CSS.
 
-> Clients will also need to be able to edit the meta tags on a per-page basis.
+Clients will also need to be able to edit the meta tags on a per-page basis.
 
 
 ## This project has 4 goals:
