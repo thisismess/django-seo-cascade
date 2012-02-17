@@ -3,10 +3,8 @@
 This project addresses the following issues:
 
 1. **Sitemap generation.** Sitemap generation often involves a lot of boilerplate configuration. We would like to automate as much of this as possible.
-Also, clients need some level of control over the sitemap. Currently, the only way to update the sitemap is to edit Django's sitemap classes directly. Most clients can't be expected to do this.
-2. **Meta tag configuration.** Meta tags don't always conform to the Django template blocks paradigm. "block.super" helps, but sometimes it's better to update only one tag without replacing every item in the block. A better solution would be a series of cascading values, simalar to CSS.
-Clients will also need to be able to edit the meta tags on a per-page basis.
-
+Also, clients need to be able to control the sitemap, and they cannot be expected to edit Django's sitemap classes directly.
+2. **Meta tag configuration.** Meta tags don't always conform to the Django template blocks paradigm. "block.super" helps, but sometimes it's better to update only one tag without replacing every item in the block. A better solution would be a series of cascading values, like CSS overrides for tags. Clients will also need to be able to edit the meta tags on a per-page basis.
 
 ## This project has 4 goals:
 
@@ -15,11 +13,6 @@ Clients will also need to be able to edit the meta tags on a per-page basis.
 3. Automatically handle sitemap generation.
 4. Give site admins granular control of the sitemap on a per-model and per-page basis.
 
-
-### See also:
-
-django-seo
-https://github.com/willhardy/django-seo
 
 ## Installation
 
@@ -40,7 +33,7 @@ Add django-seo to middleware:
 
 ### Example Template Setup:
 
-base.html
+**base.html**
 <!-- language: lang-html -->
     {% load meta %}
     
@@ -62,7 +55,7 @@ base.html
     </html>
     
 
-results in:
+*results in:*
 <!-- language: lang-html -->
     <html>
     
@@ -79,7 +72,7 @@ results in:
     
 
 ---
-extended.html
+**extended.html**
 <!-- language: lang-html -->
     {% extends "base.html" %}
     
@@ -88,7 +81,7 @@ extended.html
     {% endmeta %}
     
 
-results in:
+*results in:*
 <!-- language: lang-html -->
     <html>
     
@@ -106,7 +99,7 @@ results in:
     
 
 ---
-extended_again.html
+**extended_again.html**
     
     {% extends "extended.html" %}
     
@@ -117,7 +110,7 @@ extended_again.html
     
     
 
-results in:
+*results in:*
 <!-- language: lang-html -->
     <html>
     
@@ -146,4 +139,10 @@ Meta tag settings take the following precedence:
 
 2. Template {% meta %} blocks.
 
+### See also:
+
+django-seo
+https://github.com/willhardy/django-seo
+
+### Notes:
 This project is still in beta. Please file issues and pull-requests via https://github.com/thisismess/django-seo-cascade.
