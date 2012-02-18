@@ -31,7 +31,6 @@ def attach_signals():
 
 	for m in valid_models:
 		model_str = "%s.%s" % (m.__module__, m.__name__)
-		print "@-->model %s" % model_str
 		if first_of(SEOModelDefault.objects.filter(model=model_str).filter(omit=True)):
 			continue
 		post_save.connect(update_sitemap, sender=m)
@@ -86,10 +85,7 @@ def generate_sitemap():
 
 	# clear previous sitemap.xml entries
 	current_map = filter(lambda y: y.regex.pattern == '^sitemap\\.xml$', resolver.url_patterns)
-	print "@-->current map %r" % current_map
-	flush = map(lambda x: resolver.url_patterns.remove(x), current_map)
-
-	print "@-->flush %r" % flush
+	map(lambda x: resolver.url_patterns.remove(x), current_map)
 
 	# append our new sitemap
 	resolver.url_patterns.append(url(r'^sitemap\.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': sitemaps}, name="seo-cascade-sitemap"))

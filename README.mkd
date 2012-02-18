@@ -183,6 +183,9 @@ Add django-seo to middleware:
 
 The sitemap generator automatically creates sitemap entries for each model with a "get_absolute_url" method. From the admin, sitemap settings (priority, changefreq) can be set for each model, or the model can be omitted from the sitemap completely.
 
+
+The sitemap is updated each time a model is saved that hasn't been omitted from the sitemap.
+
 ### Precedence
 Meta tag settings take the following precedence:
 
