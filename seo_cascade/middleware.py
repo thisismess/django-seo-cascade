@@ -17,14 +17,12 @@ class SEOMiddleware(object):
 		raise MiddlewareNotUsed('Sitemap generation complete.')
 
 def detach_signals():
-	print "@-->detaching signals"
 	valid_models = filter(lambda m: hasattr(m, 'get_absolute_url'), models.get_models())
 	valid_models.append(SEOModelDefault)
 	valid_models.append(SEOPageOverride)
 	[post_save.disconnect(update_sitemap, sender=m) for m in valid_models]
 
 def attach_signals():
-	print "@-->attaching signals"
 	valid_models = filter(lambda m: hasattr(m, 'get_absolute_url'), models.get_models())
 	valid_models.append(SEOModelDefault)
 	valid_models.append(SEOPageOverride)
@@ -38,7 +36,6 @@ def attach_signals():
 
 # for signals
 def update_sitemap(sender, **kwargs):
-	print "@--->updating sitemap"
 	generate_sitemap()
 
 
