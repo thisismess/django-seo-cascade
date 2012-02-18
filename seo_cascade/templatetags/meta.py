@@ -52,7 +52,6 @@ class MetaNode(BlockNode):
 			raw += admin_path_override.image_tags
 			raw += admin_path_override.meta
 
-
 		root = etree.XML('<root>%s</root>' % raw)
 		children = root.getchildren()
 		children.reverse()
